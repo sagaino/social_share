@@ -50,6 +50,35 @@ class SocialSharePluginIOS extends SocialSharePluginPlatform {
   }
 
   @override
+  Future<void> shareToFeedFacebookVideo({
+    required String path,
+    OnSuccessHandler? onSuccess,
+    OnCancelHandler? onCancel,
+    OnErrorHandler? onError,
+  }) async {
+    methodChannel.setMethodCallHandler((call) {
+      switch (call.method) {
+        case 'onSuccess':
+          return onSuccess != null
+              ? onSuccess(call.arguments as String)
+              : Future.value();
+        case 'onCancel':
+          return onCancel != null ? onCancel() : Future.value();
+        case 'onError':
+          return onError != null
+              ? onError(call.arguments as String)
+              : Future.value();
+        default:
+          throw UnsupportedError('Unknown method called');
+      }
+    });
+    return methodChannel.invokeMethod(
+        'shareToFeedFacebookVideo',
+        <String, dynamic>{'path': path,},
+    );
+  }
+
+  @override
   Future<dynamic> shareToFeedFacebookLink({
     required String url,
     String? quote,

@@ -30,7 +30,7 @@
 
         <activity android:name="com.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="${applicationName}" />
 
-        <provider android:authorities="com.facebook.app.FacebookContentProvider${facebookAppId}" android:name="com.facebook.FacebookContentProvider" android:exported="true"/>
+        <provider android:authorities="com.facebook.app.FacebookContentProvider792615662740918" android:name="com.facebook.FacebookContentProvider" android:exported="true"/>
 
         <provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.social.share.fileprovider" android:grantUriPermissions="true" android:exported="false">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>

@@ -9,7 +9,9 @@ environment:
 dependencies:
     flutter:
         sdk: flutter
+    http: ^1.0.0
     image_picker: ^1.0.2
+    path_provider: ^2.0.0
     social_share_plugin:
         # When depending on this package from a real application you should use:
         #   social_share_plugin: ^x.y.z

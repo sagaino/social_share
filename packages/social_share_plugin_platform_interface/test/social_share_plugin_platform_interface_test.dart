@@ -22,6 +22,19 @@ class SocialSharePluginMock extends SocialSharePluginPlatform {
   }
 
   @override
+  Future<void> shareToFeedFacebookVideo({
+    required String path,
+    OnSuccessHandler? onSuccess,
+    OnCancelHandler? onCancel,
+    OnErrorHandler? onError,
+  }) async {
+    if (onSuccess != null) {
+      await onSuccess('success');
+    }
+    return;
+  }
+
+  @override
   Future<dynamic> shareToFeedFacebookLink({
     required String url,
     String? quote,

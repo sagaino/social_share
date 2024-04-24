@@ -14,6 +14,8 @@ import com.facebook.share.Sharer
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
+import com.facebook.share.model.ShareVideo
+import com.facebook.share.model.ShareVideoContent
 import com.facebook.share.widget.ShareDialog
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
@@ -104,6 +106,14 @@ class SocialSharePluginAndroid : FlutterPlugin, ActivityAware, MethodCallHandler
         openPlayStore(FACEBOOK_PACKAGE_NAME)
         result.success(false)
       }
+      "shareToFeedFacebookVideo" -> try {
+        pm.getPackageInfo(FACEBOOK_PACKAGE_NAME, PackageManager.GET_ACTIVITIES)
+        facebookShareVideo(call.argument("path"))
+        result.success(true)
+      } catch (e: PackageManager.NameNotFoundException) {
+        openPlayStore(FACEBOOK_PACKAGE_NAME)
+        result.success(false)
+      }
       "shareToFeedFacebookLink" -> try {
         pm.getPackageInfo(FACEBOOK_PACKAGE_NAME, PackageManager.GET_ACTIVITIES)
         facebookShareLink(call.argument("quote"), call.argument("url"))
@@ -167,6 +177,38 @@ class SocialSharePluginAndroid : FlutterPlugin, ActivityAware, MethodCallHandler
     )
     val photo: SharePhoto = SharePhoto.Builder().setImageUrl(uri).setCaption(caption).build()
     val content: SharePhotoContent = SharePhotoContent.Builder().addPhoto(photo).build()
+    val shareDialog = ShareDialog(activity!!)
+    shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result> {
+      override fun onSuccess(result: Sharer.Result) {
+        channel!!.invokeMethod("onSuccess", null)
+        Log.d("SocialSharePlugin", "Sharing successfully done.")
+      }
+
+      override fun onCancel() {
+        channel!!.invokeMethod("onCancel", null)
+        Log.d("SocialSharePlugin", "Sharing cancelled.")
+      }
+
+      override fun onError(error: FacebookException) {
+        channel!!.invokeMethod("onError", error.message)
+        Log.d("SocialSharePlugin", "Sharing error occurred.")
+      }
+    })
+    if (ShareDialog.canShow(SharePhotoContent::class.java)) {
+      shareDialog.show(content)
+    }
+  }
+
+  private fun facebookShareVideo(mediaPath: String?) {
+    var media = File(mediaPath)
+    val uri = FileProvider.getUriForFile(
+            activity!!, activity!!.packageName + ".social.share.fileprovider",
+            media
+    )
+    Log.d("FacebookShareVideo1", mediaPath?.toString() ?: "Media path is null")
+    Log.d("FacebookShareVideo2", uri.toString())
+    val video: ShareVideo = ShareVideo.Builder().setLocalUrl(uri).build()
+    val content: ShareVideoContent = ShareVideoContent.Builder().setVideo(video).build()
     val shareDialog = ShareDialog(activity!!)
     shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result> {
       override fun onSuccess(result: Sharer.Result) {

@@ -1,0 +1,8 @@
+<resources>
+    <!-- <string name="app_name">TestingDOT</string> -->
+    <string name="document_auto_capture_photo_captured_dimensions">Photo captured, dimensions %1$dx%2$d</string>
+    <string name="default_notification_channel_id" translatable="false">lookin-channel</string>
+
+    <string name="facebook_app_id">792615662740918</string>
+    <string name="facebook_client_token">7c1aa0d3d5f4253f2cf586dddfcee637</string>
+</resources>

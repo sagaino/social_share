@@ -41,6 +41,21 @@ Future<void> shareToFeedFacebook({
   );
 }
 
+/// Share video to facebook feed
+Future<void> shareToFeedFacebookVideo({
+  required String path,
+  OnSuccessHandler? onSuccess,
+  OnCancelHandler? onCancel,
+  OnErrorHandler? onError,
+}) async {
+  return _platform.shareToFeedFacebookVideo(
+    path: path,
+    onSuccess: onSuccess,
+    onCancel: onCancel,
+    onError: onError,
+  );
+}
+
 /// Share link to facebook feed
 Future<dynamic> shareToFeedFacebookLink({
   required String url,

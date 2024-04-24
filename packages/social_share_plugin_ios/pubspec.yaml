@@ -3,6 +3,8 @@ description: iOS implementation of the social_share_plugin plugin
 repository: https://github.com/romatroskin/social_share_plugin/tree/master/packages/social_share_plugin_ios
 version: 0.1.0+1
 
+publish_to: none
+
 environment:
     sdk: ">=3.0.0 <4.0.0"
     flutter: ">=1.10.0"
@@ -18,7 +20,14 @@ flutter:
 dependencies:
     flutter:
         sdk: flutter
-    social_share_plugin_platform_interface: ^0.1.0+1
+    social_share_plugin_platform_interface:
+      git:
+        url: https://github.com/sagaino/social_share.git
+        ref: ino
+        path: packages/social_share_plugin_platform_interface
+    # social_share_plugin_platform_interface: 
+    #   path: ../social_share_plugin_platform_interface
+    # social_share_plugin_platform_interface: ^0.1.0+1
 
 dev_dependencies:
     flutter_test:

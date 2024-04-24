@@ -59,6 +59,14 @@ abstract class SocialSharePluginPlatform extends PlatformInterface {
     OnErrorHandler? onError,
   });
 
+  /// Share video to facebook feed
+  Future<void> shareToFeedFacebookVideo({
+    required String path,
+    OnSuccessHandler? onSuccess,
+    OnCancelHandler? onCancel,
+    OnErrorHandler? onError,
+  });
+
   /// Share link to facebook feed
   Future<dynamic> shareToFeedFacebookLink({
     required String url,
